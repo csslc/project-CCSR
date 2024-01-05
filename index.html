@@ -191,7 +191,7 @@
         </div>
           <p>
             To improve the stability of diffusion priors to better assist SR tasks, we investigate in-depth how diffusion priors can help SR at different diffusion timesteps.
-            Compared with GAN priors, diffusion priors are more powerful and flexible to facilitate the generation of more realistic and visually pleasing image content.
+            Compared with GAN, diffusion priors are more powerful and flexible to facilitate the generation of more realistic and visually pleasing image content.
             This capability is especially useful when the LR image suffers from significant information loss and heavy degradation, for which the GAN-based models may fail.
             However, if the image structural contents can be well-reproduced, for example, by using the DM, the GAN network can subsequently enhance the details with low stochasticity.
           </p>
@@ -204,168 +204,112 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Method</h2>
         <div class="content has-text-justified">
-      <!-- <h3 class="title is-4">Overview of the AlignFormer</h3> -->
-      <div style="text-align: center; vertical-align:middle">
-        <img src="images/network.png" width="800">
+        <!-- <h3 class="title is-4">Overview of the AlignFormer</h3> -->
+        <div style="text-align: center; vertical-align:middle">
+          <img src="static/images/method.png" width="800">
+        </div>
+        <div align="center">
+          <b>Framework of CCSR.</b>
+        </div>
+          <p>
+            There are two training stages in CCSR, structure refinement (top left) and detail enhancement (top right).
+            In the first stage, a non-uniform sampling strategy (bottom) is proposed, which applies one timestep for information extraction from LR and several other timesteps for image structure generation.
+            The diffusion process is then stopped and the truncated output is fed into the second stage, where the detail is enhanced by finetuning the VAE decoder with adversarial training.
+          </p>
+        </div>
       </div>
-      <div align="center">
-        <b>Framework of StableSR.</b>
-      </div>
-      <p>
-        We first finetune the time-aware encoder that is attached to a fixed pre-trained Stable Diffusion model.
-        Features are combined with trainable spatial feature transform (SFT) layers. Such a simple yet effective design is capable of leveraging rich diffusion prior for image SR. Then, the diffusion model is fixed.
-        Inspired by CodeFormer, we introduce a controllable feature wrapping (CFW) module to obtain a tuned feature in a residual manner, given the additional information from LR features and features from the fixed decoder of autoencoder.
-        With an adjustable coefficient, CFW can trade between quality and fidelity. We further enable arbitrary-size super-resolution by applying an aggregation sampling strategy.
-      </p>
     </div>
-  </div>
-</div>
+  <!--=================New Stability Measures==========================-->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">New Stability Measures</h2>
+        <div class="content has-text-justified">
+        <!-- <h3 class="title is-4">Overview of the AlignFormer</h3> -->
+          <p>
+            Most of the existing diffusion prior-based SR methods suffer from the stability problem.
+            Therefore, <b>it is necessary to design measures to evaluate the stability of diffusion model-based SR models.<b>
+
+            We propose new stability metrics, namely global standard deviation (G-STD) and local standard deviation (L-STD), to <b>respectively measure the image-level and pixel-level variations of the SR results of diffusion-based methods.<b>
+            We run N times (N = 10 in our experiments) the experiments for each SR model on each test image within each test benchmark.
+            For each SR image, we can compute its quality metrics (except for FID) and then calculate the STD values over the N runs for each metric.
+            By averaging the STD values over all test images in a benchmark, the G-STD value of one metric can be obtained, which can reflect the stability of an SR model at the image level.
+            To measure the stability at the local pixel level, we define L-STD, which computes the STD of pixels in the same location of the N SR images.
+          </p>
+        </div>
+      </div>
+    </div>
+  <!--=================Results==========================-->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+        <!-- <h3 class="title is-4">Overview of the AlignFormer</h3> -->
+        <div style="text-align: center; vertical-align:middle">
+          <img src="static/images/real-world results.png" width="800">
+        </div>
+        <div align="center">
+          <b>Framework of CCSR.</b>
+        </div>
+          <p>
+             Visual comparisons between our CCSR with state-of-the-art GAN-based and DM-based methods, including RealESRGAN, BSRGAN, DASR, LDL, LDM-SR, StableSR, ResShift, DiffBIR and PASD.
+             For the DM-based method, two restored images that have the <b>best and worst PSNR values over 10 runs<b> are shown for a more comprehensive and fair comparison.
+             Our proposed CCSR works the best in reconstructing more accurate structures and more realistic, content-consistent, and stable details.
+          </p>
+        </div>
+      </div>
+    </div>
 </section>
 <!-- End paper introduction-->
 
-<!-- Image carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-       <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel1.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          First image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel2.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          Second image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel3.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-         Third image description.
-       </h2>
-     </div>
-     <div class="item">
-      <!-- Your image here -->
-      <img src="static/images/carousel4.jpg" alt="MY ALT TEXT"/>
-      <h2 class="subtitle has-text-centered">
-        Fourth image description.
-      </h2>
-    </div>
-  </div>
-</div>
-</div>
-</section>
-<!-- End image carousel -->
-
-
-
-
-<!-- Youtube video -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <!-- Paper video. -->
-      <h2 class="title is-3">Video Presentation</h2>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          
-          <div class="publication-video">
-            <!-- Youtube embed code here -->
-            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End youtube video -->
-
-
-<!-- Video carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title is-3">Another Carousel</h2>
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-video1">
-          <video poster="" id="video1" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel1.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video2">
-          <video poster="" id="video2" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel2.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video3">
-          <video poster="" id="video3" autoplay controls muted loop height="100%">\
-            <!-- Your video file here -->
-            <source src="static/videos/carousel3.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End video carousel -->
-
-
-
-
-
-
-<!-- Paper poster -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title">Poster</h2>
-
-      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
-          </iframe>
-        
-      </div>
-    </div>
-  </section>
-<!--End paper poster -->
-
-
 <!--BibTex citation -->
   <section class="section" id="BibTeX">
-    <div class="container is-max-desktop content">
-      <h2 class="title">BibTeX</h2>
-      <pre><code>BibTex Code Here</code></pre>
-    </div>
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{sun2023ccsr,
+  title={Improving the Stability of Diffusion Models for Content Consistent Super-Resolution},
+  author={Sun, Lingchen and Wu, Rongyuan and Zhang, Zhengqiang and Yong, Hongwei and Zhang, Lei},
+  journal={arXiv preprint arXiv:2401.00877},
+  year={2024},
+}</code></pre>
+  </div>
 </section>
 <!--End BibTex citation -->
 
-
-  <footer class="footer">
+<footer class="footer">
   <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/pdf/2401.00877.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/csslc" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content">
-
           <p>
-            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
-            You are free to borrow the of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            If you have any question, please contact us at <strong>ling-chen.sun@connect.polyu.hk</strong>.
+          </p>
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
             Commons Attribution-ShareAlike 4.0 International License</a>.
           </p>
-
+          <p>
+            Website adapted from the following <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a>, and <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>.
+          </p>
         </div>
       </div>
     </div>
+    <div class="content has-text-centered">
+      <script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=200&t=tt&d=b89NXOYqUHfLvWGQRzA1ijzlQxoNwNUQfgFn3AtlHEE"></script>
+    </div>
   </div>
 </footer>
+
 
 <!-- Statcounter tracking code -->
   
