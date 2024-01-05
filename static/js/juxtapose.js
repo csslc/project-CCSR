@@ -1,433 +1,757 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="description"
-        content="StableSR is a generic image SR method by efficiently leveraging prior encapsulated in Stable Diffusion.">
-  <meta name="keywords" content="Image Super-resolution, Diffusion Model, Stable Diffusion">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StableSR | MMLab@NTU</title>
+/* juxtapose - v1.1.2 - 2015-07-16
+ * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab
+ */
 
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
+(function(document, window) {
 
-  <link rel="stylesheet" href="../static/css/bulma.min.css">
-  <link rel="stylesheet" href="../static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="../static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="../static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="../static/css/index.css">
-  <link rel="icon" href="./images/logo.svg">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="../static/js/fontawesome.all.min.js"></script>
-  <script src="../static/js/bulma-carousel.min.js"></script>
-  <script src="../static/js/bulma-slider.min.js"></script>
-  <script src="../static/js/index.js"></script>
-
-  <!-- Vendor Stylesheets -->
-  <!--=================js==========================-->
-  <link rel="stylesheet" href="../static/css/tab_gallery.css">
-  <link rel="stylesheet" href="../static/css/juxtapose.css">
-  <!-- <script src="./static/js/index.js"></script> -->
-  <!-- <link rel="stylesheet" href="./menlo"> -->
-  <link rel="stylesheet" href="../static/css/image_card_fader.css">
-  <link rel="stylesheet" href="../static/css/image_card_slider.css">
-</head>
-<body>
-
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://iceclear.github.io">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
-      </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More Research
-        </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://github.com/sczhou/Upscale-A-Video">
-            Upscale-A-Video
-          </a>
-          <a class="navbar-item" href="https://zsyoaoa.github.io/projects/resshift/">
-            ResShift
-          </a>
-          <a class="navbar-item" href="https://github.com/IceClear/CLIP-IQA">
-            CLIP-IQA
-          </a>
-          <a class="navbar-item" href="https://github.com/IceClear/MW-GAN">
-            MW-GAN
-          </a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</nav>
-
-
-<section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Exploiting Diffusion Prior for Real-World Image Super-Resolution</h1>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <a href="https://iceclear.github.io">Jianyi Wang</a>, </span>
-            <span class="author-block">
-              <a href="https://zsyoaoa.github.io">Zongsheng Yue</a>, </span>
-            <span class="author-block">
-              <a href="https://shangchenzhou.com">Shangchen Zhou</a>,
-            </span>
-            <span class="author-block">
-              <a href="https://ckkelvinchan.github.io">Kelvin C.K. Chan</a>,
-            </span>
-            <span class="author-block">
-              <a href="https://www.mmlab-ntu.com/person/ccloy/index.html">Chen Change Loy</a>,
-            </span>
-          </div>
-
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">S-Lab, Nanyang Technological University</span>
-          </div>
-
-          <div class="column has-text-centered">
-            <div class="publication-links">
-              <!-- PDF Link. -->
-              <span class="link-block">
-                <a href="https://arxiv.org/pdf/2305.07015.pdf"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://arxiv.org/abs/2305.07015"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
-                </a>
-              </span>
-              <!-- Code Link. -->
-              <span class="link-block">
-                <a href="https://github.com/IceClear/StableSR"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code</span>
-                  </a>
-              <!--
-              </span>
-              Dataset Link.
-              <span class="link-block">
-                <a href="https://github.com/google/nerfies/releases/tag/0.1"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="far fa-images"></i>
-                  </span>
-                  <span>Data</span>
-                  </a> -->
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!--=================Teasers==========================-->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container is-max-desktop has-text-centered">
-      <!-- The expanding image container -->
-      <div class="tab_container">
-        <!-- Close the image -->
-        <!-- <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span> -->
-
-        <!-- Expanded image -->
-        <div id="juxtapose-embed" data-startingposition="30%" data-animate="true" class="juxtapose"
-          style="height: 800px; width: 800px;">
-          <!-- <div class="jx-slider">
-            <div class="jx-handle " style="left: 50%;">
-              <div class="jx-arrow jx-left"></div>
-              <div class="jx-control">
-                <div class="jx-controller" tabindex="0" role="slider" aria-valuenow="50" aria-valuemin="0"
-                  aria-valuemax="100"></div>
-              </div>
-              <div class="jx-arrow jx-right"></div>
-            </div>
-            <div class="jx-image jx-left " style="width: 50%;"><img src="./src/UDC_1.png" alt="">
-              <div class="jx-label" tabindex="0">UDC images</div>
-            </div>
-            <div class="jx-image jx-right " style="width: 50%;"><img src="./src/AF_1.png" alt="">
-              <div class="jx-label" tabindex="0">AlignFormer results</div>
-            </div><a href="https://juxtapose.knightlab.com" target="_blank" rel="noopener" class="jx-knightlab">
-              <div class="knightlab-logo"></div><span class="juxtapose-name">JuxtaposeJS</span>
-            </a>
-          </div> -->
-        </div>
-
-        <div>
-          <div id="juxtapose-hidden"></div>
-        </div>
-
-        <!-- Image text -->
-        <div id="imgtext"></div>
-      </div>
-
-      <!-- The grid: four columns -->
-      <div class="tab_row">
-        <div class="tab_column">
-          <img src="images/building_LQ.png" onclick="tab_gallery_click('building');">
-        </div>
-        <div class="tab_column">
-          <img src="images/Lincoln_LQ.png" onclick="tab_gallery_click('Lincoln');">
-        </div>
-        <div class="tab_column">
-          <img src="images/OST_120full_LQ.png" onclick="tab_gallery_click('OST_120full');">
-        </div>
-        <div class="tab_column">
-          <img src="images/1-1Z626233153-51full_LQ.png" onclick="tab_gallery_click('1-1Z626233153-51full');">
-        </div>
-        <div class="tab_column">
-          <img src="images/2841_709551_375529full_LQ.png" onclick="tab_gallery_click('2841_709551_375529full');">
-        </div>
-        <div class="tab_column">
-          <img src="images/comic3full_LQ.png" onclick="tab_gallery_click('comic3full');">
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Video</h2>
-        <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/5MZy9Uhpkw4"
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
-    <!--/ Paper video. -->
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            We present a novel approach to leverage prior knowledge encapsulated in pre-trained text-to-image diffusion models for blind super-resolution (SR). Specifically, by employing our time-aware encoder, we can achieve promising restoration results without altering the pre-trained synthesis model, thereby preserving the generative prior and minimizing training cost.
-            To remedy the loss of fidelity caused by the inherent stochasticity of diffusion models, we introduce a controllable feature wrapping module that allows users to balance quality and fidelity by simply adjusting a scalar value during the inference process.
-            Moreover, we develop a progressive aggregation sampling strategy to overcome the fixed-size constraints of pre-trained diffusion models, enabling adaptation to resolutions of any size.
-            A comprehensive evaluation of our method using both synthetic and real-world benchmarks demonstrates its superiority over current state-of-the-art approaches.
-          </p>
-        </div>
-      </div>
-    </div>
-    <!--/ Abstract. -->
-    <!--=================Method==========================-->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Method</h2>
-        <div class="content has-text-justified">
-      <!-- <h3 class="title is-4">Overview of the AlignFormer</h3> -->
-      <div style="text-align: center; vertical-align:middle">
-        <img src="images/network.png" width="800">
-      </div>
-      <div align="center">
-        <b>Framework of StableSR.</b>
-      </div>
-      <p>
-        We first finetune the time-aware encoder that is attached to a fixed pre-trained Stable Diffusion model.
-        Features are combined with trainable spatial feature transform (SFT) layers. Such a simple yet effective design is capable of leveraging rich diffusion prior for image SR. Then, the diffusion model is fixed.
-        Inspired by CodeFormer, we introduce a controllable feature wrapping (CFW) module to obtain a tuned feature in a residual manner, given the additional information from LR features and features from the fixed decoder of autoencoder.
-        With an adjustable coefficient, CFW can trade between quality and fidelity. We further enable arbitrary-size super-resolution by applying an aggregation sampling strategy.
-      </p>
-    </div>
-  </div>
-</div>
-    <!--=================Results==========================-->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Results</h2>
-        <div class="content has-text-justified">
-        <div style="text-align: center; vertical-align:middle">
-          <img src="images/results.svg" width="800">
-        </div>
-        <div align="center">
-          <b>Visual results on real-world images (4x).</b>
-        </div>
-    </div>
-  </div>
-</div>
-</div>
-</section>
-
-
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>@article{wang2023exploiting,
-  author    = {Wang, Jianyi and Yue, Zongsheng and Zhou, Shangchen and Chan, Kelvin C.K. and Loy, Chen Change},
-  title     = {Exploiting Diffusion Prior for Real-World Image Super-Resolution},
-  journal   = {arXiv preprint arXiv:2305.07015},
-  year      = {2023},
-}</code></pre>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="container">
-    <div class="content has-text-centered">
-      <a class="icon-link"
-         href="https://arxiv.org/pdf/2305.07015.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/IceClear" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-          <p>
-            If you have any question, please contact us at <strong>iceclearwjy@gmail.com</strong>.
-          </p>
-          <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          <p>
-            Website adapted from the following <a
-              href="https://github.com/nerfies/nerfies.github.io">source code</a>.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="content has-text-centered">
-      <script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=200&t=tt&d=b89NXOYqUHfLvWGQRzA1ijzlQxoNwNUQfgFn3AtlHEE"></script>
-    </div>
-  </div>
-</footer>
-
-<!-- Image Slider Javascripts -->
-<!--=================Functions==========================-->
-<script src="../static/js/juxtapose.js"></script>
-
-
-<script>
-  var slider;
-  let origImages = [
-    { "src": "images/building_LQ.png", "label": "Zoomed LQ images", },
-    { "src": "images/building_HQ.png", "label": "StableSR results", }
-  ];
-  let origOptions = {
-    "makeResponsive": true,
-    "showLabels": true,
-    "mode": "horizontal",
-    "showCredits": true,
-    "animate": true,
-    "startingPosition": "50"
-  };
-
-  const juxtaposeSelector = "#juxtapose-embed";
-  const transientSelector = "#juxtapose-hidden";
-
-
-  function tab_gallery_click(name) {
-    // Get the expanded image
-    let inputImage = {
-      label: "Zoomed LQ images",
-    };
-    let outputImage = {
-      label: "StableSR results",
+    var juxtapose = {
+        sliders: [],
+        OPTIMIZATION_ACCEPTED: 1,
+        OPTIMIZATION_WAS_CONSTRAINED: 2
     };
 
-    inputImage.src = "images/".concat(name, "_LQ", ".png")
-    outputImage.src = "images/".concat(name, "_HQ", ".png")
+    var flickr_key = "d90fc2d1f4acc584e08b8eaea5bf4d6c";
+    var FLICKR_SIZE_PREFERENCES = ['Large', 'Medium'];
 
-    let images = [inputImage, outputImage];
-    let options = slider.options;
-    options.callback = function (obj) {
-      var newNode = document.getElementById(obj.selector.substring(1));
-      var oldNode = document.getElementById(juxtaposeSelector.substring(1));
-      console.log(obj.selector.substring(1));
-      console.log(newNode.children[0]);
-      oldNode.replaceChild(newNode.children[0], oldNode.children[0]);
-      //newNode.removeChild(newNode.children[0]);
+    function Graphic(properties, slider) {
+        var self = this;
+        this.image = new Image();
+
+        this.loaded = false;
+        this.image.onload = function() {
+            self.loaded = true;
+            slider._onLoaded();
+        };
+
+        this.image.src = properties.src;
+        this.image.alt = properties.alt || '';
+        this.label = properties.label || false;
+        this.credit = properties.credit || false;
+    }
+
+    function FlickrGraphic(properties, slider) {
+        var self = this;
+        this.image = new Image();
+
+        this.loaded = false;
+        this.image.onload = function() {
+            self.loaded = true;
+            slider._onLoaded();
+        };
+
+        this.flickrID = this.getFlickrID(properties.src);
+        this.callFlickrAPI(this.flickrID, self);
+
+        this.label = properties.label || false;
+        this.credit = properties.credit || false;
+    }
+
+    FlickrGraphic.prototype = {
+        getFlickrID: function(url) {
+            if (url.match(/flic.kr\/.+/i)) {
+                var encoded = url.split('/').slice(-1)[0];
+                return base58Decode(encoded);
+            }
+            var idx = url.indexOf("flickr.com/photos/");
+            var pos = idx + "flickr.com/photos/".length;
+            var photo_info = url.substr(pos);
+            if (photo_info.indexOf('/') == -1) return null;
+            if (photo_info.indexOf('/') === 0) photo_info = photo_info.substr(1);
+            id = photo_info.split("/")[1];
+            return id;
+        },
+
+        callFlickrAPI: function(id, self) {
+            var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes' +
+                '&api_key=' + flickr_key +
+                '&photo_id=' + id + '&format=json&nojsoncallback=1';
+
+            var request = new XMLHttpRequest();
+            request.open('GET', url, true);
+            request.onload = function() {
+                if (request.status >= 200 && request.status < 400) {
+                    data = JSON.parse(request.responseText);
+                    var flickr_url = self.bestFlickrUrl(data.sizes.size);
+                    self.setFlickrImage(flickr_url);
+                } else {
+                    console.error("There was an error getting the picture from Flickr");
+                }
+            };
+            request.onerror = function() {
+                console.error("There was an error getting the picture from Flickr");
+            };
+            request.send();
+        },
+
+        setFlickrImage: function(src) {
+            this.image.src = src;
+        },
+
+        bestFlickrUrl: function(ary) {
+            var dict = {};
+            for (var i = 0; i < ary.length; i++) {
+                dict[ary[i].label] = ary[i].source;
+            }
+            for (var j = 0; j < FLICKR_SIZE_PREFERENCES.length; j++) {
+                if (FLICKR_SIZE_PREFERENCES[j] in dict) {
+                    return dict[FLICKR_SIZE_PREFERENCES[j]];
+                }
+            }
+            return ary[0].source;
+        }
+    };
+
+    function getNaturalDimensions(DOMelement) {
+        if (DOMelement.naturalWidth && DOMelement.naturalHeight) {
+            return { width: DOMelement.naturalWidth, height: DOMelement.naturalHeight };
+        }
+        // https://www.jacklmoore.com/notes/naturalwidth-and-naturalheight-in-ie/
+        var img = new Image();
+        img.src = DOMelement.src;
+        return { width: img.width, height: img.height };
+    }
+
+    function getImageDimensions(img) {
+        var dimensions = {
+            width: getNaturalDimensions(img).width,
+            height: getNaturalDimensions(img).height,
+            aspect: function() { return (this.width / this.height); }
+        };
+        return dimensions;
+    }
+
+    function addClass(element, c) {
+        if (element.classList) {
+            element.classList.add(c);
+        } else {
+            element.className += " " + c;
+        }
+    }
+
+    function removeClass(element, c) {
+        element.className = element.className.replace(/(\S+)\s*/g, function(w, match) {
+            if (match === c) {
+                return '';
+            }
+            return w;
+        }).replace(/^\s+/, '');
+    }
+
+    function setText(element, text) {
+        if (document.body.textContent) {
+            element.textContent = text;
+        } else {
+            element.innerText = text;
+        }
+    }
+
+    function getComputedWidthAndHeight(element) {
+        if (window.getComputedStyle) {
+            return {
+                width: parseInt(getComputedStyle(element).width, 10),
+                height: parseInt(getComputedStyle(element).height, 10)
+            };
+        } else {
+            w = element.getBoundingClientRect().right - element.getBoundingClientRect().left;
+            h = element.getBoundingClientRect().bottom - element.getBoundingClientRect().top;
+            return {
+                width: parseInt(w, 10) || 0,
+                height: parseInt(h, 10) || 0
+            };
+        }
+    }
+
+    function viewport() {
+        var e = window,
+            a = 'inner';
+        if (!('innerWidth' in window)) {
+            a = 'client';
+            e = document.documentElement || document.body;
+        }
+        return { width: e[a + 'Width'], height: e[a + 'Height'] }
+    }
+
+    function getPageX(e) {
+        var pageX;
+        if (e.pageX) {
+            pageX = e.pageX;
+        } else if (e.touches) {
+            pageX = e.touches[0].pageX;
+        } else {
+            pageX = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+        }
+        return pageX;
+    }
+
+    function getPageY(e) {
+        var pageY;
+        if (e.pageY) {
+            pageY = e.pageY;
+        } else if (e.touches) {
+            pageY = e.touches[0].pageY;
+        } else {
+            pageY = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+        }
+        return pageY;
+    }
+
+    function checkFlickr(url) {
+        if (url.match(/flic.kr\/.+/i)) {
+            return true;
+        }
+        var idx = url.indexOf("flickr.com/photos/");
+        if (idx == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function base58Decode(encoded) {
+        var alphabet = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ',
+            base = alphabet.length;
+        if (typeof encoded !== 'string') {
+            throw '"base58Decode" only accepts strings.';
+        }
+        var decoded = 0;
+        while (encoded) {
+            var alphabetPosition = alphabet.indexOf(encoded[0]);
+            if (alphabetPosition < 0) {
+                throw '"base58Decode" can\'t find "' + encoded[0] + '" in the alphabet: "' + alphabet + '"';
+            }
+            var powerOf = encoded.length - 1;
+            decoded += alphabetPosition * (Math.pow(base, powerOf));
+            encoded = encoded.substring(1);
+        }
+        return decoded.toString();
+    }
+
+    function getLeftPercent(slider, input) {
+        if (typeof(input) === "string" || typeof(input) === "number") {
+            leftPercent = parseInt(input, 10);
+        } else {
+            var sliderRect = slider.getBoundingClientRect();
+            var offset = {
+                top: sliderRect.top + document.body.scrollTop + document.documentElement.scrollTop,
+                left: sliderRect.left + document.body.scrollLeft + document.documentElement.scrollLeft
+            };
+            var width = slider.offsetWidth;
+            var pageX = getPageX(input);
+            var relativeX = pageX - offset.left;
+            leftPercent = (relativeX / width) * 100;
+        }
+        return leftPercent;
+    }
+
+    function getTopPercent(slider, input) {
+        if (typeof(input) === "string" || typeof(input) === "number") {
+            topPercent = parseInt(input, 10);
+        } else {
+            var sliderRect = slider.getBoundingClientRect();
+            var offset = {
+                top: sliderRect.top + document.body.scrollTop + document.documentElement.scrollTop,
+                left: sliderRect.left + document.body.scrollLeft + document.documentElement.scrollLeft
+            };
+            var width = slider.offsetHeight;
+            var pageY = getPageY(input);
+            var relativeY = pageY - offset.top;
+            topPercent = (relativeY / width) * 100;
+        }
+        return topPercent;
+    }
+
+    // values of BOOLEAN_OPTIONS are ignored. just used for 'in' test on keys
+    var BOOLEAN_OPTIONS = { 'animate': true, 'showLabels': true, 'showCredits': true, 'makeResponsive': true };
+
+    function interpret_boolean(x) {
+        if (typeof(x) != 'string') {
+            return Boolean(x);
+        }
+        return !(x === 'false' || x === '');
+    }
+
+    function JXSlider(selector, images, options) {
+
+        this.selector = selector;
+
+        var i;
+        this.options = { // new options must have default values set here.
+            animate: true,
+            showLabels: true,
+            showCredits: true,
+            makeResponsive: true,
+            startingPosition: "50%",
+            mode: 'horizontal',
+            callback: null // pass a callback function if you like
+        };
+
+        for (i in this.options) {
+            if (i in options) {
+                if (i in BOOLEAN_OPTIONS) {
+                    this.options[i] = interpret_boolean(options[i]);
+                } else {
+                    this.options[i] = options[i];
+                }
+            }
+        }
+
+        if (images.length == 2) {
+
+            if (checkFlickr(images[0].src)) {
+                this.imgBefore = new FlickrGraphic(images[0], this);
+            } else {
+                this.imgBefore = new Graphic(images[0], this);
+            }
+
+            if (checkFlickr(images[1].src)) {
+                this.imgAfter = new FlickrGraphic(images[1], this);
+            } else {
+                this.imgAfter = new Graphic(images[1], this);
+            }
+
+        } else {
+            console.warn("The images parameter takes two Image objects.");
+        }
+
+        if (this.imgBefore.credit || this.imgAfter.credit) {
+            this.options.showCredits = true;
+        } else {
+            this.options.showCredits = false;
+        }
+    }
+
+    JXSlider.prototype = {
+
+        updateSlider: function(input, animate) {
+            var leftPercent, rightPercent;
+
+            if (this.options.mode === "vertical") {
+                leftPercent = getTopPercent(this.slider, input);
+            } else {
+                leftPercent = getLeftPercent(this.slider, input);
+            }
+
+            leftPercent = leftPercent.toFixed(2) + "%";
+            leftPercentNum = parseFloat(leftPercent);
+            rightPercent = (100 - leftPercentNum) + "%";
+
+            if (leftPercentNum > 0 && leftPercentNum < 100) {
+                removeClass(this.handle, 'transition');
+                removeClass(this.rightImage, 'transition');
+                removeClass(this.leftImage, 'transition');
+
+                if (this.options.animate && animate) {
+                    addClass(this.handle, 'transition');
+                    addClass(this.leftImage, 'transition');
+                    addClass(this.rightImage, 'transition');
+                }
+
+                if (this.options.mode === "vertical") {
+                    this.handle.style.top = leftPercent;
+                    this.leftImage.style.height = leftPercent;
+                    this.rightImage.style.height = rightPercent;
+                } else {
+                    this.handle.style.left = leftPercent;
+                    this.leftImage.style.width = leftPercent;
+                    this.rightImage.style.width = rightPercent;
+                }
+                this.sliderPosition = leftPercent;
+            }
+        },
+
+        getPosition: function() {
+            return this.sliderPosition;
+        },
+
+        displayLabel: function(element, labelText) {
+            label = document.createElement("div");
+            label.className = 'jx-label';
+            label.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
+
+            setText(label, labelText);
+            element.appendChild(label);
+        },
+
+        displayCredits: function() {
+            credit = document.createElement("div");
+            credit.className = "jx-credit";
+
+            text = "<em>Photo Credits:</em>";
+            if (this.imgBefore.credit) { text += " <em>Before</em> " + this.imgBefore.credit; }
+            if (this.imgAfter.credit) { text += " <em>After</em> " + this.imgAfter.credit; }
+
+            credit.innerHTML = text;
+
+            this.wrapper.appendChild(credit);
+        },
+
+        setStartingPosition: function(s) {
+            this.options.startingPosition = s;
+        },
+
+        checkImages: function() {
+            if (getImageDimensions(this.imgBefore.image).aspect() ==
+                getImageDimensions(this.imgAfter.image).aspect()) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+
+        calculateDims: function(width, height) {
+            var ratio = getImageDimensions(this.imgBefore.image).aspect();
+            if (width) {
+                height = width / ratio;
+            } else if (height) {
+                width = height * ratio;
+            }
+            return {
+                width: width,
+                height: height,
+                ratio: ratio
+            };
+        },
+
+        responsivizeIframe: function(dims) {
+            //Check the slider dimensions against the iframe (window) dimensions
+            if (dims.height < window.innerHeight) {
+                //If the aspect ratio is greater than 1, imgs are landscape, so letterbox top and bottom
+                if (dims.ratio >= 1) {
+                    this.wrapper.style.paddingTop = parseInt((window.innerHeight - dims.height) / 2) + "px";
+                }
+            } else if (dims.height > window.innerHeight) {
+                /* If the image is too tall for the window, which happens at 100% width on large screens,
+                 * force dimension recalculation based on height instead of width */
+                dims = this.calculateDims(0, window.innerHeight);
+                this.wrapper.style.paddingLeft = parseInt((window.innerWidth - dims.width) / 2) + "px";
+            }
+            if (this.options.showCredits) {
+                // accommodate the credits box within the iframe
+                dims.height -= 13;
+            }
+            return dims;
+        },
+
+        setWrapperDimensions: function() {
+            var wrapperWidth = getComputedWidthAndHeight(this.wrapper).width;
+            var wrapperHeight = getComputedWidthAndHeight(this.wrapper).height;
+            var dims = this.calculateDims(wrapperWidth, wrapperHeight);
+            // if window is in iframe, make sure images don't overflow boundaries
+            if (window.location !== window.parent.location && !this.options.makeResponsive) {
+                dims = this.responsivizeIframe(dims);
+            }
+
+            this.wrapper.style.height = parseInt(dims.height) + "px";
+            this.wrapper.style.width = parseInt(dims.width) + "px";
+        },
+
+        optimizeWrapper: function(maxWidth) {
+            var result = juxtapose.OPTIMIZATION_ACCEPTED;
+            if ((this.imgBefore.image.naturalWidth >= maxWidth) && (this.imgAfter.image.naturalWidth >= maxWidth)) {
+                this.wrapper.style.width = maxWidth + "px";
+                result = juxtapose.OPTIMIZATION_WAS_CONSTRAINED;
+            } else if (this.imgAfter.image.naturalWidth < maxWidth) {
+                this.wrapper.style.width = this.imgAfter.image.naturalWidth + "px";
+            } else {
+                this.wrapper.style.width = this.imgBefore.image.naturalWidth + "px";
+            }
+            this.setWrapperDimensions();
+            return result;
+        },
+
+        _onLoaded: function() {
+
+            if (this.imgBefore && this.imgBefore.loaded === true &&
+                this.imgAfter && this.imgAfter.loaded === true) {
+
+                this.wrapper = document.querySelector(this.selector);
+                addClass(this.wrapper, 'juxtapose');
+
+                this.wrapper.style.width = getNaturalDimensions(this.imgBefore.image).width;
+                this.setWrapperDimensions();
+
+                this.slider = document.createElement("div");
+                this.slider.className = 'jx-slider';
+                this.wrapper.appendChild(this.slider);
+
+                if (this.options.mode != "horizontal") {
+                    addClass(this.slider, this.options.mode);
+                }
+
+                this.handle = document.createElement("div");
+                this.handle.className = 'jx-handle';
+
+                this.rightImage = document.createElement("div");
+                this.rightImage.className = 'jx-image jx-right';
+                this.rightImage.appendChild(this.imgAfter.image);
+
+
+                this.leftImage = document.createElement("div");
+                this.leftImage.className = 'jx-image jx-left';
+                this.leftImage.appendChild(this.imgBefore.image);
+
+                this.labCredit = document.createElement("a");
+                this.labCredit.setAttribute('href', 'https://juxtapose.knightlab.com');
+                this.labCredit.setAttribute('target', '_blank');
+                this.labCredit.setAttribute('rel', 'noopener');
+                this.labCredit.className = 'jx-knightlab';
+                this.labLogo = document.createElement("div");
+                this.labLogo.className = 'knightlab-logo';
+                this.labCredit.appendChild(this.labLogo);
+                this.projectName = document.createElement("span");
+                this.projectName.className = 'juxtapose-name';
+                setText(this.projectName, 'JuxtaposeJS');
+                this.labCredit.appendChild(this.projectName);
+
+                this.slider.appendChild(this.handle);
+                this.slider.appendChild(this.leftImage);
+                this.slider.appendChild(this.rightImage);
+                this.slider.appendChild(this.labCredit);
+
+                this.leftArrow = document.createElement("div");
+                this.rightArrow = document.createElement("div");
+                this.control = document.createElement("div");
+                this.controller = document.createElement("div");
+
+                this.leftArrow.className = 'jx-arrow jx-left';
+                this.rightArrow.className = 'jx-arrow jx-right';
+                this.control.className = 'jx-control';
+                this.controller.className = 'jx-controller';
+
+                this.controller.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
+                this.controller.setAttribute('role', 'slider');
+                this.controller.setAttribute('aria-valuenow', 50);
+                this.controller.setAttribute('aria-valuemin', 0);
+                this.controller.setAttribute('aria-valuemax', 100);
+
+                this.handle.appendChild(this.leftArrow);
+                this.handle.appendChild(this.control);
+                this.handle.appendChild(this.rightArrow);
+                this.control.appendChild(this.controller);
+
+                this._init();
+            }
+        },
+
+        _init: function() {
+
+            if (this.checkImages() === false) {
+                console.warn(this, "Check that the two images have the same aspect ratio for the slider to work correctly.");
+            }
+
+            this.updateSlider(this.options.startingPosition, false);
+
+            if (this.options.showLabels === true) {
+                if (this.imgBefore.label) { this.displayLabel(this.leftImage, this.imgBefore.label); }
+                if (this.imgAfter.label) { this.displayLabel(this.rightImage, this.imgAfter.label); }
+            }
+
+            if (this.options.showCredits === true) {
+                this.displayCredits();
+            }
+
+            var self = this;
+            window.addEventListener("resize", function() {
+                self.setWrapperDimensions();
+            });
+
+
+            // Set up Javascript Events
+            // On mousedown, call updateSlider then set animate to false
+            // (if animate is true, adds css transition when updating).
+
+            this.slider.addEventListener("mousedown", function(e) {
+                e = e || window.event;
+                e.preventDefault();
+                self.updateSlider(e, true);
+                animate = true;
+
+                this.addEventListener("mousemove", function(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    if (animate) { self.updateSlider(e, false); }
+                });
+
+                this.addEventListener('mouseup', function(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.removeEventListener('mouseup', arguments.callee);
+                    animate = false;
+                });
+            });
+
+            this.slider.addEventListener("touchstart", function(e) {
+                e = e || window.event;
+                e.preventDefault();
+                e.stopPropagation();
+                self.updateSlider(e, true);
+
+                this.addEventListener("touchmove", function(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    e.stopPropagation();
+                    self.updateSlider(event, false);
+                });
+
+            });
+
+            /* keyboard accessibility */
+
+            this.handle.addEventListener("keydown", function(e) {
+                e = e || window.event;
+                var key = e.which || e.keyCode;
+                var ariaValue = parseFloat(this.style.left);
+
+                //move jx-controller left
+                if (key == 37) {
+                    ariaValue = ariaValue - 1;
+                    var leftStart = parseFloat(this.style.left) - 1;
+                    self.updateSlider(leftStart, false);
+                    self.controller.setAttribute('aria-valuenow', ariaValue);
+                }
+
+                //move jx-controller right
+                if (key == 39) {
+                    ariaValue = ariaValue + 1;
+                    var rightStart = parseFloat(this.style.left) + 1;
+                    self.updateSlider(rightStart, false);
+                    self.controller.setAttribute('aria-valuenow', ariaValue);
+                }
+            });
+
+            //toggle right-hand image visibility
+            this.leftImage.addEventListener("keydown", function(event) {
+                var key = event.which || event.keyCode;
+                if ((key == 13) || (key == 32)) {
+                    self.updateSlider("90%", true);
+                    self.controller.setAttribute('aria-valuenow', 90);
+                }
+            });
+
+            //toggle left-hand image visibility
+            this.rightImage.addEventListener("keydown", function(event) {
+                var key = event.which || event.keyCode;
+                if ((key == 13) || (key == 32)) {
+                    self.updateSlider("10%", true);
+                    self.controller.setAttribute('aria-valuenow', 10);
+                }
+            });
+
+            juxtapose.sliders.push(this);
+
+            if (this.options.callback && typeof(this.options.callback) == 'function') {
+                this.options.callback(this);
+            }
+        }
 
     };
 
-    slider = new juxtapose.JXSlider(transientSelector, images, options);
-  };
+    /*
+      Given an element that is configured with the proper data elements, make a slider out of it.
+      Normally this will just be used by scanPage.
+    */
+    juxtapose.makeSlider = function(element, idx) {
+        if (typeof idx == 'undefined') {
+            idx = juxtapose.sliders.length; // not super threadsafe...
+        }
 
-  (function () {
-    slider = new juxtapose.JXSlider(
-      juxtaposeSelector, origImages, origOptions);
-    //document.getElementById("left-button").onclick = replaceLeft;
-    //document.getElementById("right-button").onclick = replaceRight;
-  })();
-  // Get the image text
-  var imgText = document.getElementById("imgtext");
-  // Use the same src in the expanded image as the image being clicked on from the grid
-  // expandImg.src = imgs.src;
-  // Use the value of the alt attribute of the clickable image as text inside the expanded image
-  imgText.innerHTML = name;
-  // Show the container element (hidden with CSS)
-  // expandImg.parentElement.style.display = "block";
+        var w = element;
 
-  $(".flip-card").click(function () {
-    console.log("fading in")
-    div_back = $(this).children().children()[1]
-    div_front = $(this).children().children()[0]
-    // console.log($(this).children("div.flip-card-back"))
-    console.log(div_back)
-    $(div_front).addClass("out");
-    $(div_front).removeClass("in");
+        var images = w.querySelectorAll('img');
 
-    $(div_back).addClass("in");
-    $(div_back).removeClass("out");
+        var options = {};
+        // don't set empty string into options, that's a false false.
+        if (w.getAttribute('data-animate')) {
+            options.animate = w.getAttribute('data-animate');
+        }
+        if (w.getAttribute('data-showlabels')) {
+            options.showLabels = w.getAttribute('data-showlabels');
+        }
+        if (w.getAttribute('data-showcredits')) {
+            options.showCredits = w.getAttribute('data-showcredits');
+        }
+        if (w.getAttribute('data-startingposition')) {
+            options.startingPosition = w.getAttribute('data-startingposition');
+        }
+        if (w.getAttribute('data-mode')) {
+            options.mode = w.getAttribute('data-mode');
+        }
+        if (w.getAttribute('data-makeresponsive')) {
+            options.mode = w.getAttribute('data-makeresponsive');
+        }
 
-  });
+        specificClass = 'juxtapose-' + idx;
+        addClass(element, specificClass);
 
-  $(".flip-card").mouseleave(function () {
-    console.log("fading in")
-    div_back = $(this).children().children()[1]
-    div_front = $(this).children().children()[0]
-    // console.log($(this).children("div.flip-card-back"))
-    console.log(div_back)
-    $(div_front).addClass("in");
-    $(div_front).removeClass("out");
+        selector = '.' + specificClass;
 
-    $(div_back).addClass("out");
-    $(div_back).removeClass("in");
+        if (w.innerHTML) {
+            w.innerHTML = '';
+        } else {
+            w.innerText = '';
+        }
 
-  });
-</script>
+        slider = new juxtapose.JXSlider(
+            selector, [{
+                    src: images[0].src,
+                    label: images[0].getAttribute('data-label'),
+                    credit: images[0].getAttribute('data-credit'),
+                    alt: images[0].alt
+                },
+                {
+                    src: images[1].src,
+                    label: images[1].getAttribute('data-label'),
+                    credit: images[1].getAttribute('data-credit'),
+                    alt: images[1].alt
+                }
+            ],
+            options
+        );
+    };
 
-</body>
-</html>
+    //Enable HTML Implementation
+    juxtapose.scanPage = function() {
+        var elements = document.querySelectorAll('.juxtapose');
+        for (var i = 0; i < elements.length; i++) {
+            juxtapose.makeSlider(elements[i], i);
+        }
+    };
+
+    juxtapose.JXSlider = JXSlider;
+    window.juxtapose = juxtapose;
+
+    juxtapose.scanPage();
+
+}(document, window));
+
+
+// addEventListener polyfill / jonathantneal
+!window.addEventListener && (function(WindowPrototype, DocumentPrototype, ElementPrototype, addEventListener, removeEventListener, dispatchEvent, registry) {
+    WindowPrototype[addEventListener] = DocumentPrototype[addEventListener] = ElementPrototype[addEventListener] = function(type, listener) {
+        var target = this;
+
+        registry.unshift([target, type, listener, function(event) {
+            event.currentTarget = target;
+            event.preventDefault = function() { event.returnValue = false };
+            event.stopPropagation = function() { event.cancelBubble = true };
+            event.target = event.srcElement || target;
+
+            listener.call(target, event);
+        }]);
+
+        this.attachEvent("on" + type, registry[0][3]);
+    };
+
+    WindowPrototype[removeEventListener] = DocumentPrototype[removeEventListener] = ElementPrototype[removeEventListener] = function(type, listener) {
+        for (var index = 0, register; register = registry[index]; ++index) {
+            if (register[0] == this && register[1] == type && register[2] == listener) {
+                return this.detachEvent("on" + type, registry.splice(index, 1)[0][3]);
+            }
+        }
+    };
+
+    WindowPrototype[dispatchEvent] = DocumentPrototype[dispatchEvent] = ElementPrototype[dispatchEvent] = function(eventObject) {
+        return this.fireEvent("on" + eventObject.type, eventObject);
+    };
+})(Window.prototype, HTMLDocument.prototype, Element.prototype, "addEventListener", "removeEventListener", "dispatchEvent", []);
