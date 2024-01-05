@@ -1,108 +1,67 @@
-  <!DOCTYPE html>
-  <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="description"
-          content="StableSR is a generic image SR method by efficiently leveraging prior encapsulated in Stable Diffusion.">
-    <meta name="keywords" content="Image Super-resolution, Diffusion Model, Stable Diffusion">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>StableSR | MMLab@NTU</title>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="StableSR is a generic image SR method by efficiently leveraging prior encapsulated in Stable Diffusion.">
+  <meta name="keywords" content="Image Super-resolution, Diffusion Model, Stable Diffusion">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StableSR | MMLab@NTU</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-          rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
 
-    <link rel="stylesheet" href="../static/css/bulma.min.css">
-    <link rel="stylesheet" href="../static/css/bulma-carousel.min.css">
-    <link rel="stylesheet" href="../static/css/bulma-slider.min.css">
-    <link rel="stylesheet" href="../static/css/fontawesome.all.min.css">
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-    <link rel="stylesheet" href="../static/css/index.css">
-    <link rel="icon" href="./images/logo.svg">
+  <link rel="stylesheet" href="../static/css/bulma.min.css">
+  <link rel="stylesheet" href="../static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="../static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="../static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="../static/css/index.css">
+  <link rel="icon" href="./images/logo.svg">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script defer src="../static/js/fontawesome.all.min.js"></script>
-    <script src="../static/js/bulma-carousel.min.js"></script>
-    <script src="../static/js/bulma-slider.min.js"></script>
-    <script src="../static/js/index.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="../static/js/fontawesome.all.min.js"></script>
+  <script src="../static/js/bulma-carousel.min.js"></script>
+  <script src="../static/js/bulma-slider.min.js"></script>
+  <script src="../static/js/index.js"></script>
 
-    <!-- Vendor Stylesheets -->
-    <!--=================js==========================-->
-    <link rel="stylesheet" href="../static/css/tab_gallery.css">
-    <link rel="stylesheet" href="../static/css/juxtapose.css">
-    <!-- <script src="./static/js/index.js"></script> -->
-    <!-- <link rel="stylesheet" href="./menlo"> -->
-    <link rel="stylesheet" href="../static/css/image_card_fader.css">
-    <link rel="stylesheet" href="../static/css/image_card_slider.css">
-  </head>
-  <body>
-
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-    <div class="navbar-menu">
-      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-        <a class="navbar-item" href="https://iceclear.github.io">
-        <span class="icon">
-            <i class="fas fa-home"></i>
-        </span>
-        </a>
-
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            More Research
-          </a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="https://github.com/sczhou/Upscale-A-Video">
-              Upscale-A-Video
-            </a>
-            <a class="navbar-item" href="https://zsyoaoa.github.io/projects/resshift/">
-              ResShift
-            </a>
-            <a class="navbar-item" href="https://github.com/IceClear/CLIP-IQA">
-              CLIP-IQA
-            </a>
-            <a class="navbar-item" href="https://github.com/IceClear/MW-GAN">
-              MW-GAN
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </nav>
+  <!-- Vendor Stylesheets -->
+  <!--=================js==========================-->
+  <link rel="stylesheet" href="../static/css/tab_gallery.css">
+  <link rel="stylesheet" href="../static/css/juxtapose.css">
+  <!-- <script src="./static/js/index.js"></script> -->
+  <!-- <link rel="stylesheet" href="./menlo"> -->
+  <link rel="stylesheet" href="../static/css/image_card_fader.css">
+  <link rel="stylesheet" href="../static/css/image_card_slider.css">
+</head>
+<body>
 
 
-
-  <section class="hero">
-    <div class="hero-body">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">Improving the Stability of Diffusion Models for Content Consistent Super-Resolution</h1>
-            <div class="is-size-5 publication-authors">
-              <!-- Paper authors -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Improving the Stability of Diffusion Models for Content Consistent Super-Resolution</h1>
+          <div class="is-size-5 publication-authors">
+            <!-- Paper authors -->
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=zh-CN&tzom=-480&user=ZCDjTn8AAAAJ" target="_blank">Lingchen Sun</a><sup>1,2</sup>,</span>
               <span class="author-block">
-                <a href="https://scholar.google.com/citations?hl=zh-CN&tzom=-480&user=ZCDjTn8AAAAJ" target="_blank">Lingchen Sun</a><sup>1,2</sup>,</span>
+                <a href="https://scholar.google.com/citations?user=A-U8zE8AAAAJ&hl=zh-CN" target="_blank">Rongyuan Wu</a><sup>1,2</sup>,</span>
                 <span class="author-block">
-                  <a href="https://scholar.google.com/citations?user=A-U8zE8AAAAJ&hl=zh-CN" target="_blank">Rongyuan Wu</a><sup>1,2</sup>,</span>
+                  <a href="https://scholar.google.com/citations?hl=zh-CN&user=UX26wSMAAAAJ&view_op=list_works&sortby=pubdate" target="_blank">Zhengqiang Zhang</a><sup>1,2</sup>,</span>
+                <span class="author-block">
+                <a href="https://scholar.google.com.hk/citations?user=Xii74qQAAAAJ&hl=zh-CN" target="_blank">Hongwei Yong</a><sup>1</sup>,</span>
                   <span class="author-block">
-                    <a href="https://scholar.google.com/citations?hl=zh-CN&user=UX26wSMAAAAJ&view_op=list_works&sortby=pubdate" target="_blank">Zhengqiang Zhang</a><sup>1,2</sup>,</span>
-                  <span class="author-block">
-                  <a href="https://scholar.google.com.hk/citations?user=Xii74qQAAAAJ&hl=zh-CN" target="_blank">Hongwei Yong</a><sup>1</sup>,</span>
-                    <span class="author-block">
-                  <a href="Thttps://www4.comp.polyu.edu.hk/~cslzhang/" target="_blank">Lei Zhang</a><sup>1,2</sup>,</span>
-                  </span>
-                  </div>
+                <a href="Thttps://www4.comp.polyu.edu.hk/~cslzhang/" target="_blank">Lei Zhang</a><sup>1,2</sup>,</span>
+                </span>
+                </div>
 
-                  <div class="is-size-5 publication-authors">
-                    <span class="author-block">1. The Hong Kong Polytechnic University, 2. OPPO Research Institute<br>
-                  </div>
+                <div class="is-size-5 publication-authors">
+                  <span class="author-block">1. The Hong Kong Polytechnic University, 2. OPPO Research Institute<br>
+                </div>
 
 <!--                  <div class="column has-text-centered">-->
 <!--                    <div class="publication-links">-->
@@ -117,18 +76,18 @@
 <!--                      </a>-->
 <!--                    </span>-->
 
-                    <!-- ArXiv abstract Link -->
-                  <span class="link-block">
-                    <a href="https://arxiv.org/pdf/2401.00877.pdf" target="_blank"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                    </span>
-                    <span>arXiv</span>
-                  </a>
-                </span>
+                  <!-- ArXiv abstract Link -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/pdf/2401.00877.pdf" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
 
-                    <!-- Supplementary PDF link -->
+                  <!-- Supplementary PDF link -->
 <!--                    <span class="link-block">-->
 <!--                      <a href="static/pdfs/supplementary_material.pdf" target="_blank"-->
 <!--                      class="external-link button is-normal is-rounded is-dark">-->
@@ -139,18 +98,18 @@
 <!--                    </a>-->
 <!--                  </span>-->
 
-                  <!-- Github link -->
-                  <span class="link-block">
-                    <a href="https://github.com/csslc/CCSR" target="_blank"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-github"></i>
-                    </span>
-                    <span>Code</span>
-                  </a>
-                </span>
+                <!-- Github link -->
+                <span class="link-block">
+                  <a href="https://github.com/csslc/CCSR" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
 
-                <!-- ArXiv abstract Link -->
+              <!-- ArXiv abstract Link -->
 <!--                <span class="link-block">-->
 <!--                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"-->
 <!--                  class="external-link button is-normal is-rounded is-dark">-->
@@ -269,239 +228,239 @@
       </div>
     </div>
 
-  <!--=================Motivation==========================-->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Motivation</h2>
-        <div class="content has-text-justified">
-        <!-- <h3 class="title is-4">Overview of the AlignFormer</h3> -->
-        <div style="text-align: center; vertical-align:middle">
-          <img src="static/images/problem.png" width="600">
-        </div>
-          <p>
-            Visual comparisons of two super-resolution images with different starting points in the diffusion process from an input LR image.
-            One can see that the images generated by StableSR exhibit noticeable differences in textures, as well as large variations in PSNR and LPIPS indices.
-            In contrast, our CCSR method produces more stable and content-consistent results.
-          </p>
-        <div style="text-align: center; vertical-align:middle">
-          <img src="static/images/motivation.png" width="800">
-        </div>
-          <p>
-            To improve the stability of diffusion priors to better assist SR tasks, we investigate in-depth how diffusion priors can help SR at different diffusion timesteps.
-            Compared with GAN, diffusion priors are more powerful and flexible to facilitate the generation of more realistic and visually pleasing image content.
-            This capability is especially useful when the LR image suffers from significant information loss and heavy degradation, for which the GAN-based models may fail.
-            However, if the image structural contents can be well-reproduced, for example, by using the DM, the GAN network can subsequently enhance the details with low stochasticity.
-          </p>
-        </div>
+<!--=================Motivation==========================-->
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-four-fifths">
+      <h2 class="title is-3">Motivation</h2>
+      <div class="content has-text-justified">
+      <!-- <h3 class="title is-4">Overview of the AlignFormer</h3> -->
+      <div style="text-align: center; vertical-align:middle">
+        <img src="static/images/problem.png" width="600">
+      </div>
+        <p>
+          Visual comparisons of two super-resolution images with different starting points in the diffusion process from an input LR image.
+          One can see that the images generated by StableSR exhibit noticeable differences in textures, as well as large variations in PSNR and LPIPS indices.
+          In contrast, our CCSR method produces more stable and content-consistent results.
+        </p>
+      <div style="text-align: center; vertical-align:middle">
+        <img src="static/images/motivation.png" width="800">
+      </div>
+        <p>
+          To improve the stability of diffusion priors to better assist SR tasks, we investigate in-depth how diffusion priors can help SR at different diffusion timesteps.
+          Compared with GAN, diffusion priors are more powerful and flexible to facilitate the generation of more realistic and visually pleasing image content.
+          This capability is especially useful when the LR image suffers from significant information loss and heavy degradation, for which the GAN-based models may fail.
+          However, if the image structural contents can be well-reproduced, for example, by using the DM, the GAN network can subsequently enhance the details with low stochasticity.
+        </p>
       </div>
     </div>
+  </div>
 
-  <!--=================Method==========================-->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Method</h2>
-        <div class="content has-text-justified">
-        <!-- <h3 class="title is-4">Overview of the AlignFormer</h3> -->
-        <div style="text-align: center; vertical-align:middle">
-          <img src="static/images/method.png" width="800">
-        </div>
-        <div align="center">
-          <b>Framework of CCSR.</b>
-        </div>
-          <p>
-            There are two training stages in CCSR, structure refinement (top left) and detail enhancement (top right).
-            In the first stage, a non-uniform sampling strategy (bottom) is proposed, which applies one timestep for information extraction from LR and several other timesteps for image structure generation.
-            The diffusion process is then stopped and the truncated output is fed into the second stage, where the detail is enhanced by finetuning the VAE decoder with adversarial training.
-          </p>
-        </div>
+<!--=================Method==========================-->
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-four-fifths">
+      <h2 class="title is-3">Method</h2>
+      <div class="content has-text-justified">
+      <!-- <h3 class="title is-4">Overview of the AlignFormer</h3> -->
+      <div style="text-align: center; vertical-align:middle">
+        <img src="static/images/method.png" width="800">
+      </div>
+      <div align="center">
+        <b>Framework of CCSR.</b>
+      </div>
+        <p>
+          There are two training stages in CCSR, structure refinement (top left) and detail enhancement (top right).
+          In the first stage, a non-uniform sampling strategy (bottom) is proposed, which applies one timestep for information extraction from LR and several other timesteps for image structure generation.
+          The diffusion process is then stopped and the truncated output is fed into the second stage, where the detail is enhanced by finetuning the VAE decoder with adversarial training.
+        </p>
       </div>
     </div>
-  <!--=================New Stability Measures==========================-->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">New Stability Measures</h2>
-        <div class="content has-text-justified">
-        <!-- <h3 class="title is-4">Overview of the AlignFormer</h3> -->
-          <p>
-            Most of the existing diffusion prior-based SR methods suffer from the stability problem.
-            <b>Therefore, it is necessary to design measures to evaluate the stability of diffusion model-based SR models.</b>
+  </div>
+<!--=================New Stability Measures==========================-->
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-four-fifths">
+      <h2 class="title is-3">New Stability Measures</h2>
+      <div class="content has-text-justified">
+      <!-- <h3 class="title is-4">Overview of the AlignFormer</h3> -->
+        <p>
+          Most of the existing diffusion prior-based SR methods suffer from the stability problem.
+          <b>Therefore, it is necessary to design measures to evaluate the stability of diffusion model-based SR models.</b>
 
-            We propose new stability metrics, namely global standard deviation (G-STD) and local standard deviation (L-STD), to
-            <b>respectively measure the image-level and pixel-level variations of the SR results of diffusion-based methods.</b>
-            We run N times (N = 10 in our experiments) the experiments for each SR model on each test image within each test benchmark.
-            For each SR image, we can compute its quality metrics (except for FID) and then calculate the STD values over the N runs for each metric.
-            By averaging the STD values over all test images in a benchmark, the G-STD value of one metric can be obtained, which can reflect the stability of an SR model at the image level.
-            To measure the stability at the local pixel level, we define L-STD, which computes the STD of pixels in the same location of the N SR images.
-          </p>
-        </div>
+          We propose new stability metrics, namely global standard deviation (G-STD) and local standard deviation (L-STD), to
+          <b>respectively measure the image-level and pixel-level variations of the SR results of diffusion-based methods.</b>
+          We run N times (N = 10 in our experiments) the experiments for each SR model on each test image within each test benchmark.
+          For each SR image, we can compute its quality metrics (except for FID) and then calculate the STD values over the N runs for each metric.
+          By averaging the STD values over all test images in a benchmark, the G-STD value of one metric can be obtained, which can reflect the stability of an SR model at the image level.
+          To measure the stability at the local pixel level, we define L-STD, which computes the STD of pixels in the same location of the N SR images.
+        </p>
       </div>
     </div>
-  <!--=================Results==========================-->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Results</h2>
-        <div class="content has-text-justified">
-        <!-- <h3 class="title is-4">Overview of the AlignFormer</h3> -->
-        <div style="text-align: center; vertical-align:middle">
-          <img src="static/images/real-world results.png" width="800">
-        </div>
-          <p>
-             Visual comparisons between our CCSR with state-of-the-art GAN-based and DM-based methods, including RealESRGAN, BSRGAN, DASR, LDL, LDM-SR, StableSR, ResShift, DiffBIR and PASD.
-             For the DM-based method, two restored images that have the
-            <strong>best and worst PSNR values over 10 runs</strong>
-              are shown for a more comprehensive and fair comparison.
-             Our proposed CCSR works the best in reconstructing more accurate structures and more realistic, content-consistent, and stable details.
-          </p>
-        </div>
+  </div>
+<!--=================Results==========================-->
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-four-fifths">
+      <h2 class="title is-3">Results</h2>
+      <div class="content has-text-justified">
+      <!-- <h3 class="title is-4">Overview of the AlignFormer</h3> -->
+      <div style="text-align: center; vertical-align:middle">
+        <img src="static/images/real-world results.png" width="800">
+      </div>
+        <p>
+           Visual comparisons between our CCSR with state-of-the-art GAN-based and DM-based methods, including RealESRGAN, BSRGAN, DASR, LDL, LDM-SR, StableSR, ResShift, DiffBIR and PASD.
+           For the DM-based method, two restored images that have the
+          <strong>best and worst PSNR values over 10 runs</strong>
+            are shown for a more comprehensive and fair comparison.
+           Our proposed CCSR works the best in reconstructing more accurate structures and more realistic, content-consistent, and stable details.
+        </p>
       </div>
     </div>
+  </div>
 </section>
 <!-- End paper introduction-->
 
 <!--BibTex citation -->
-  <section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>@article{sun2023ccsr,
-  title={Improving the Stability of Diffusion Models for Content Consistent Super-Resolution},
-  author={Sun, Lingchen and Wu, Rongyuan and Zhang, Zhengqiang and Yong, Hongwei and Zhang, Lei},
-  journal={arXiv preprint arXiv:2401.00877},
-  year={2024},
+<section class="section" id="BibTeX">
+<div class="container is-max-desktop content">
+  <h2 class="title">BibTeX</h2>
+  <pre><code>@article{sun2023ccsr,
+title={Improving the Stability of Diffusion Models for Content Consistent Super-Resolution},
+author={Sun, Lingchen and Wu, Rongyuan and Zhang, Zhengqiang and Yong, Hongwei and Zhang, Lei},
+journal={arXiv preprint arXiv:2401.00877},
+year={2024},
 }</code></pre>
-  </div>
+</div>
 </section>
 <!--End BibTex citation -->
 
 <footer class="footer">
-  <div class="container">
-    <div class="content has-text-centered">
-      <a class="icon-link"
-         href="https://arxiv.org/pdf/2401.00877.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/csslc" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-          <p>
-            If you have any question, please contact us at <strong>ling-chen.sun@connect.polyu.hk</strong>.
-          </p>
-          <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          <p>
-            Website adapted from the following <a
-              href="https://github.com/nerfies/nerfies.github.io">source code</a>, and <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>.
-          </p>
-        </div>
+<div class="container">
+  <div class="content has-text-centered">
+    <a class="icon-link"
+       href="https://arxiv.org/pdf/2401.00877.pdf">
+      <i class="fas fa-file-pdf"></i>
+    </a>
+    <a class="icon-link" href="https://github.com/csslc" class="external-link" disabled>
+      <i class="fab fa-github"></i>
+    </a>
+  </div>
+  <div class="columns is-centered">
+    <div class="column is-8">
+      <div class="content">
+        <p>
+          If you have any question, please contact us at <strong>ling-chen.sun@connect.polyu.hk</strong>.
+        </p>
+        <p>
+          This website is licensed under a <a rel="license"
+                                              href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+          Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <p>
+          Website adapted from the following <a
+            href="https://github.com/nerfies/nerfies.github.io">source code</a>, and <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>.
+        </p>
       </div>
     </div>
-  </footer>
+  </div>
+</footer>
 
-  <!-- Image Slider Javascripts -->
-  <!--=================Functions==========================-->
-  <script src="../static/js/juxtapose.js"></script>
+<!-- Image Slider Javascripts -->
+<!--=================Functions==========================-->
+<script src="static/js/juxtapose.js"></script>
 
 
-  <script>
-    var slider;
-    let origImages = [
-      { "src": "static/images/19_LQ.png", "label": "Zoomed LQ images", },
-      { "src": "static/images/19_HQ.png", "label": "CCSR results", }
-    ];
-    let origOptions = {
-      "makeResponsive": true,
-      "showLabels": true,
-      "mode": "horizontal",
-      "showCredits": true,
-      "animate": true,
-      "startingPosition": "50"
+<script>
+  var slider;
+  let origImages = [
+    { "src": "static/images/19_LQ.png", "label": "Zoomed LQ images", },
+    { "src": "static/images/19_HQ.png", "label": "CCSR results", }
+  ];
+  let origOptions = {
+    "makeResponsive": true,
+    "showLabels": true,
+    "mode": "horizontal",
+    "showCredits": true,
+    "animate": true,
+    "startingPosition": "50"
+  };
+
+  const juxtaposeSelector = "#juxtapose-embed";
+  const transientSelector = "#juxtapose-hidden";
+
+
+  function tab_gallery_click(name) {
+    // Get the expanded image
+    let inputImage = {
+      label: "Zoomed LQ images",
+    };
+    let outputImage = {
+      label: "CCSR results",
     };
 
-    const juxtaposeSelector = "#juxtapose-embed";
-    const transientSelector = "#juxtapose-hidden";
+    inputImage.src = "static/images/".concat(name, "_LQ", ".png")
+    outputImage.src = "static/images/".concat(name, "_HQ", ".png")
 
+    let images = [inputImage, outputImage];
+    let options = slider.options;
+    options.callback = function (obj) {
+      var newNode = document.getElementById(obj.selector.substring(1));
+      var oldNode = document.getElementById(juxtaposeSelector.substring(1));
+      console.log(obj.selector.substring(1));
+      console.log(newNode.children[0]);
+      oldNode.replaceChild(newNode.children[0], oldNode.children[0]);
+      //newNode.removeChild(newNode.children[0]);
 
-    function tab_gallery_click(name) {
-      // Get the expanded image
-      let inputImage = {
-        label: "Zoomed LQ images",
-      };
-      let outputImage = {
-        label: "CCSR results",
-      };
-
-      inputImage.src = "static/images/".concat(name, "_LQ", ".png")
-      outputImage.src = "static/images/".concat(name, "_HQ", ".png")
-
-      let images = [inputImage, outputImage];
-      let options = slider.options;
-      options.callback = function (obj) {
-        var newNode = document.getElementById(obj.selector.substring(1));
-        var oldNode = document.getElementById(juxtaposeSelector.substring(1));
-        console.log(obj.selector.substring(1));
-        console.log(newNode.children[0]);
-        oldNode.replaceChild(newNode.children[0], oldNode.children[0]);
-        //newNode.removeChild(newNode.children[0]);
-
-      };
-
-      slider = new juxtapose.JXSlider(transientSelector, images, options);
     };
 
-    (function () {
-      slider = new juxtapose.JXSlider(
-        juxtaposeSelector, origImages, origOptions);
-      //document.getElementById("left-button").onclick = replaceLeft;
-      //document.getElementById("right-button").onclick = replaceRight;
-    })();
-    // Get the image text
-    var imgText = document.getElementById("imgtext");
-    // Use the same src in the expanded image as the image being clicked on from the grid
-    // expandImg.src = imgs.src;
-    // Use the value of the alt attribute of the clickable image as text inside the expanded image
-    imgText.innerHTML = name;
-    // Show the container element (hidden with CSS)
-    // expandImg.parentElement.style.display = "block";
+    slider = new juxtapose.JXSlider(transientSelector, images, options);
+  };
 
-    $(".flip-card").click(function () {
-      console.log("fading in")
-      div_back = $(this).children().children()[1]
-      div_front = $(this).children().children()[0]
-      // console.log($(this).children("div.flip-card-back"))
-      console.log(div_back)
-      $(div_front).addClass("out");
-      $(div_front).removeClass("in");
+  (function () {
+    slider = new juxtapose.JXSlider(
+      juxtaposeSelector, origImages, origOptions);
+    //document.getElementById("left-button").onclick = replaceLeft;
+    //document.getElementById("right-button").onclick = replaceRight;
+  })();
+  // Get the image text
+  var imgText = document.getElementById("imgtext");
+  // Use the same src in the expanded image as the image being clicked on from the grid
+  // expandImg.src = imgs.src;
+  // Use the value of the alt attribute of the clickable image as text inside the expanded image
+  imgText.innerHTML = name;
+  // Show the container element (hidden with CSS)
+  // expandImg.parentElement.style.display = "block";
 
-      $(div_back).addClass("in");
-      $(div_back).removeClass("out");
+  $(".flip-card").click(function () {
+    console.log("fading in")
+    div_back = $(this).children().children()[1]
+    div_front = $(this).children().children()[0]
+    // console.log($(this).children("div.flip-card-back"))
+    console.log(div_back)
+    $(div_front).addClass("out");
+    $(div_front).removeClass("in");
 
-    });
+    $(div_back).addClass("in");
+    $(div_back).removeClass("out");
 
-    $(".flip-card").mouseleave(function () {
-      console.log("fading in")
-      div_back = $(this).children().children()[1]
-      div_front = $(this).children().children()[0]
-      // console.log($(this).children("div.flip-card-back"))
-      console.log(div_back)
-      $(div_front).addClass("in");
-      $(div_front).removeClass("out");
+  });
 
-      $(div_back).addClass("out");
-      $(div_back).removeClass("in");
+  $(".flip-card").mouseleave(function () {
+    console.log("fading in")
+    div_back = $(this).children().children()[1]
+    div_front = $(this).children().children()[0]
+    // console.log($(this).children("div.flip-card-back"))
+    console.log(div_back)
+    $(div_front).addClass("in");
+    $(div_front).removeClass("out");
 
-    });
-  </script>
-  <!-- Statcounter tracking code -->
+    $(div_back).addClass("out");
+    $(div_back).removeClass("in");
 
-  <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+  });
+</script>
+<!-- Statcounter tracking code -->
 
-      <!-- End of Statcounter Code -->
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
 
-  </body>
-  </html>
+    <!-- End of Statcounter Code -->
+
+</body>
+</html>
