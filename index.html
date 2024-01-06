@@ -263,7 +263,7 @@
           To improve the stability of diffusion priors to better assist SR tasks, we investigate in-depth how diffusion priors can help SR at different diffusion timesteps.
           Compared with GAN, diffusion priors are more powerful and flexible to facilitate the generation of more realistic and visually pleasing image content.
           This capability is especially useful when the LR image suffers from significant information loss and heavy degradation, for which the GAN-based models may fail.
-          However, if the image structural contents can be well-reproduced, for example, by using the DM, the GAN network can subsequently enhance the details with low stochasticity.
+          However, if the image structural contents can be well-reproduced, for example, by using the diffusion model, the GAN network can subsequently enhance the details with low stochasticity.
         </p>
       </div>
     </div>
@@ -319,8 +319,8 @@
         <img src="images/real-world results.png" width="800">
       </div>
         <p>
-           Visual comparisons between our CCSR with state-of-the-art GAN-based and DM-based methods, including RealESRGAN, BSRGAN, DASR, LDL, LDM-SR, StableSR, ResShift, DiffBIR and PASD.
-           For the DM-based method, two restored images that have the
+           Visual comparisons between our CCSR with state-of-the-art GAN-based and diffusion model-based methods, including RealESRGAN, BSRGAN, DASR, LDL, LDM-SR, StableSR, ResShift, DiffBIR and PASD.
+           For the diffusion model-based method, two restored images that have the
           <strong>best and worst PSNR values over 10 runs</strong>
             are shown for a more comprehensive and fair comparison.
            Our proposed CCSR works the best in reconstructing more accurate structures and more realistic, content-consistent, and stable details.
