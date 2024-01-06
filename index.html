@@ -23,7 +23,7 @@
   <meta name="keywords" content="Image Super-resolution, Diffusion Model, Stable Diffusion">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Improving the Stability of Diffusion Models for Content Consistent Super-Resolution</title>
-  <link rel="icon" type="image/x-icon" href="static/images/logo.png">
+  <link rel="icon" type="image/x-icon" href="images/logo.png">
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
   rel="stylesheet">
@@ -204,22 +204,22 @@
       <!-- The grid: four columns -->
       <div class="tab_row">
         <div class="tab_column">
-          <img src="static/images/19_LQ.png" onclick="tab_gallery_click('19');">
+          <img src="images/19_LQ.png" onclick="tab_gallery_click('19');">
         </div>
         <div class="tab_column">
-          <img src="static/images/29_LQ.png" onclick="tab_gallery_click('29');">
+          <img src="images/29_LQ.png" onclick="tab_gallery_click('29');">
         </div>
         <div class="tab_column">
-          <img src="static/images/49_LQ.png" onclick="tab_gallery_click('49');">
+          <img src="images/49_LQ.png" onclick="tab_gallery_click('49');">
         </div>
         <div class="tab_column">
-          <img src="static/images/53_LQ.png" onclick="tab_gallery_click('53');">
+          <img src="images/53_LQ.png" onclick="tab_gallery_click('53');">
         </div>
         <div class="tab_column">
-          <img src="static/images/OST_009_LQ.png" onclick="tab_gallery_click('OST_009');">
+          <img src="images/OST_009_LQ.png" onclick="tab_gallery_click('OST_009');">
         </div>
         <div class="tab_column">
-          <img src="static/images/wolf_gray_LQ.png" onclick="tab_gallery_click('wolf_gray');">
+          <img src="images/wolf_gray_LQ.png" onclick="tab_gallery_click('wolf_gray');">
         </div>
       </div>
     </div>
@@ -251,7 +251,7 @@
       <div class="content has-text-justified">
       <!-- <h3 class="title is-4">Overview of the AlignFormer</h3> -->
       <div style="text-align: center; vertical-align:middle">
-        <img src="static/images/problem.png" width="600">
+        <img src="images/problem.png" width="600">
       </div>
         <p>
           Visual comparisons of two super-resolution images with different starting points in the diffusion process from an input LR image.
@@ -259,7 +259,7 @@
           In contrast, our CCSR method produces more stable and content-consistent results.
         </p>
       <div style="text-align: center; vertical-align:middle">
-        <img src="static/images/motivation.png" width="800">
+        <img src="images/motivation.png" width="800">
       </div>
         <p>
           To improve the stability of diffusion priors to better assist SR tasks, we investigate in-depth how diffusion priors can help SR at different diffusion timesteps.
@@ -278,7 +278,7 @@
       <div class="content has-text-justified">
       <!-- <h3 class="title is-4">Overview of the AlignFormer</h3> -->
       <div style="text-align: center; vertical-align:middle">
-        <img src="static/images/method.png" width="800">
+        <img src="images/method.png" width="800">
       </div>
       <div align="center">
         <b>Framework of CCSR.</b>
@@ -318,7 +318,7 @@
       <div class="content has-text-justified">
       <!-- <h3 class="title is-4">Overview of the AlignFormer</h3> -->
       <div style="text-align: center; vertical-align:middle">
-        <img src="static/images/real-world results.png" width="800">
+        <img src="images/real-world results.png" width="800">
       </div>
         <p>
            Visual comparisons between our CCSR with state-of-the-art GAN-based and DM-based methods, including RealESRGAN, BSRGAN, DASR, LDL, LDM-SR, StableSR, ResShift, DiffBIR and PASD.
@@ -389,8 +389,8 @@ year={2024},
 <script>
   var slider;
   let origImages = [
-    { "src": "static/images/19_LQ.png", "label": "Zoomed LQ images", },
-    { "src": "static/images/19_HQ.png", "label": "CCSR results", }
+    { "src": "images/19_LQ.png", "label": "Zoomed LQ images", },
+    { "src": "images/19_HQ.png", "label": "CCSR results", }
   ];
   let origOptions = {
     "makeResponsive": true,
@@ -414,8 +414,8 @@ year={2024},
       label: "CCSR results",
     };
 
-    inputImage.src = "static/images/".concat(name, "_LQ", ".png")
-    outputImage.src = "static/images/".concat(name, "_HQ", ".png")
+    inputImage.src = "images/".concat(name, "_LQ", ".png")
+    outputImage.src = "images/".concat(name, "_HQ", ".png")
 
     let images = [inputImage, outputImage];
     let options = slider.options;
